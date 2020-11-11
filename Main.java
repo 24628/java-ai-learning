@@ -34,15 +34,14 @@ public class Main {
         ScreenShot ScreenShot = new ScreenShot();
         ColorDectection colorDec = new ColorDectection();
 
-        long startTime = System.currentTimeMillis();
-        long endTime = 0;
         while(true) {
             try {
+              long startTime = System.currentTimeMillis();
               Image img = ScreenShot.SCapture(ScreenWidth, ScreenHeight);
               label.setIcon(new ImageIcon(img));
               colorDec.detectColorInImage(img, ScreenWidth, ScreenHeight);
-              startTime = System.currentTimeMillis();
-              System.out.println("took this amount of seconds: " + (startTime - endTime) /1000);
+              long endTime = System.currentTimeMillis();
+              System.out.println("loop took this amount of miliseconds: " + (endTime - startTime));
             } catch (Exception ex) {
               ex.printStackTrace();
             }
