@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.awt.image.BufferedImage;
 
 import src.ScreenShot;
+import src.ColorDectection;
 
 public class Main {
 
@@ -13,9 +14,9 @@ public class Main {
 
   public static JLabel label = new JLabel();
 
-  private static int ScreenHeight = 300;
+  private static int ScreenHeight = 864;
 
-  private static int ScreenWidth = 400;
+  private static int ScreenWidth = 1152;
 
   private static void initWindow()
   {
@@ -30,18 +31,21 @@ public class Main {
   public static void main(String[] args) {
       initWindow();
 
-      ScreenShot ScreenShot = new ScreenShot();
-      long startTime = System.currentTimeMillis();
-      long endTime = 0;
-      while(true) {
-        try {
-          Image img = ScreenShot.SCapture(ScreenWidth, ScreenHeight);
-          label.setIcon(new ImageIcon(img));
-          startTime = System.currentTimeMillis();
-          System.out.println("took this amount of seconds: " + (startTime - endTime) /1000);
-        } catch (Exception ex) {
-          ex.printStackTrace();
+        ScreenShot ScreenShot = new ScreenShot();
+        ColorDectection colorDec = new ColorDectection();
+
+        long startTime = System.currentTimeMillis();
+        long endTime = 0;
+        while(true) {
+            try {
+              Image img = ScreenShot.SCapture(ScreenWidth, ScreenHeight);
+              label.setIcon(new ImageIcon(img));
+              colorDec.detectColorInImage(img);
+              startTime = System.currentTimeMillis();
+              System.out.println("took this amount of seconds: " + (startTime - endTime) /1000);
+            } catch (Exception ex) {
+              ex.printStackTrace();
+            }
         }
-      }
-  }
+    }
 }
