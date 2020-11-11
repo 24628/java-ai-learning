@@ -17,7 +17,7 @@ public class Main {
 
   private static int ScreenWidth = 400;
 
-  private static void createWindow()
+  private static void initWindow()
   {
       frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       frame.setPreferredSize(new Dimension(ScreenWidth, ScreenHeight));
@@ -28,14 +28,20 @@ public class Main {
   }
 
   public static void main(String[] args) {
-      createWindow();
+      initWindow();
 
       ScreenShot ScreenShot = new ScreenShot();
-      try {
-        Image img = ScreenShot.SCapture(ScreenWidth, ScreenHeight);
-        label.setIcon(new ImageIcon(img));
-      } catch (Exception ex) {
-        ex.printStackTrace();
+      long startTime = System.currentTimeMillis();
+      long endTime = 0;
+      while(true) {
+        try {
+          Image img = ScreenShot.SCapture(ScreenWidth, ScreenHeight);
+          label.setIcon(new ImageIcon(img));
+          startTime = System.currentTimeMillis();
+          System.out.println("took this amount of seconds: " + (startTime - endTime) /1000);
+        } catch (Exception ex) {
+          ex.printStackTrace();
+        }
       }
   }
 }
