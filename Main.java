@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 
 import src.ScreenShot;
 import src.ColorDectection;
+import src.KeyInputs;
 
 public class Main {
 
@@ -33,6 +34,7 @@ public class Main {
 
         ScreenShot ScreenShot = new ScreenShot();
         ColorDectection colorDec = new ColorDectection();
+        KeyInputs keyInputs = new KeyInputs();
 
         while(true) {
             try {
@@ -42,6 +44,7 @@ public class Main {
               colorDec.detectColorInImage(img, ScreenWidth, ScreenHeight);
               long endTime = System.currentTimeMillis();
               System.out.println("loop took this amount of miliseconds: " + (endTime - startTime));
+              keyInputs.test();
             } catch (Exception ex) {
               ex.printStackTrace();
             }
