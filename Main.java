@@ -10,9 +10,9 @@ import src.ColorDectection;
 
 public class Main {
 
-  public static JFrame frame = new JFrame("Simple GUI");
+  private static JFrame frame = new JFrame("Simple GUI");
 
-  public static JLabel label = new JLabel();
+  private static JLabel label = new JLabel();
 
   private static int ScreenHeight = 864;
 
@@ -40,7 +40,7 @@ public class Main {
             try {
               Image img = ScreenShot.SCapture(ScreenWidth, ScreenHeight);
               label.setIcon(new ImageIcon(img));
-              colorDec.detectColorInImage(img);
+              colorDec.detectColorInImage(img, ScreenWidth, ScreenHeight);
               startTime = System.currentTimeMillis();
               System.out.println("took this amount of seconds: " + (startTime - endTime) /1000);
             } catch (Exception ex) {
