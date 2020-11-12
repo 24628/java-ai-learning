@@ -19,6 +19,8 @@ public class Main {
 
   private static int ScreenWidth = 1152;
 
+  private static boolean loop = true;
+
   private static void initWindow()
   {
       frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -30,13 +32,21 @@ public class Main {
   }
 
   public static void main(String[] args) {
+    try
+    {
+      Thread.sleep(7000);
+    }
+    catch(InterruptedException ex)
+    {
+      Thread.currentThread().interrupt();
+    }
       initWindow();
 
         ScreenShot ScreenShot = new ScreenShot();
         ColorDectection colorDec = new ColorDectection();
         KeyInputs keyInputs = new KeyInputs();
 
-        while(true) {
+        while(loop) {
             try {
               long startTime = System.currentTimeMillis();
               Image img = ScreenShot.SCapture(ScreenWidth, ScreenHeight);
@@ -44,7 +54,8 @@ public class Main {
               colorDec.detectColorInImage(img, ScreenWidth, ScreenHeight);
               long endTime = System.currentTimeMillis();
               System.out.println("loop took this amount of miliseconds: " + (endTime - startTime));
-              keyInputs.test();
+              // keyInputs.test();
+              loop = false;
             } catch (Exception ex) {
               ex.printStackTrace();
             }

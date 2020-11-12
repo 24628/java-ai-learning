@@ -7,49 +7,41 @@ import java.awt.AWTException;
 
 public class KeyInputs
 {
-    private static Robot robot = new Robot();
+    private static final Robot robot = initRobot();
+
+    private static Robot initRobot() {
+        Robot robot = null;
+        try {
+          robot = new Robot();
+        } catch (AWTException e) {
+          e.printStackTrace();
+        }
+        return robot;
+    }
 
     public void pressKey(KeyEvent key, Boolean caps){
-        try {
-              if(caps) robot.keyPress(KeyEvent.VK_CAPS_LOCK);
-              robot.keyPress(KeyEvent.key);
-              releaseKey();
-        } catch (AWTException e) {
-              e.printStackTrace();
-        }
+        if(caps) robot.keyPress(KeyEvent.VK_CAPS_LOCK);
+        robot.keyPress(key.getKeyCode());
     }
 
     public void pressKeyWithCtrl(KeyEvent key){
-        try {
-              robot.keyPress(KeyEvent.VK_CONTROL);
-              robot.keyPress(KeyEvent.key);
-              releaseKeyWithCtrl();
-        } catch (AWTException e) {
-              e.printStackTrace();
-        }
+        robot.keyPress(KeyEvent.VK_CONTROL);
+        robot.keyPress(key.getKeyCode());
     }
 
     public void releaseKey(KeyEvent key){
-        try {
-              robot.keyRelease(KeyEvent.VK_CAPS_LOCK);
-              robot.keyRelease(KeyEvent.key);
-        } catch (AWTException e) {
-              e.printStackTrace();
-        }
+        robot.keyRelease(KeyEvent.VK_CAPS_LOCK);
+        robot.keyRelease(key.getKeyCode());
     }
 
     public void releaseKeyWithCtrl(KeyEvent key){
-        try {
-              robot.keyRelease(KeyEvent.VK_CONTROL);
-              robot.keyRelease(KeyEvent.key);
-        } catch (AWTException e) {
-              e.printStackTrace();
-        }
+        robot.keyRelease(KeyEvent.VK_CONTROL);
+        robot.keyRelease(key.getKeyCode());
     }
 
     public static KeyEvent VK_H; // h To select townhall
 
     public static KeyEvent VK_PERIOD; // . To select villager
 
-    public static KeyEvent VK_COMMA // , To find idle millitary
+    public static KeyEvent VK_COMMA; // , To find idle millitary
 }
