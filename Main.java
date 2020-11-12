@@ -55,7 +55,7 @@ public class Main {
               long endTime = System.currentTimeMillis();
               System.out.println("loop took this amount of miliseconds: " + (endTime - startTime));
               // keyInputs.test();
-              loop = false;
+              // loop = false;
             } catch (Exception ex) {
               ex.printStackTrace();
             }

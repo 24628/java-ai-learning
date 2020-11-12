@@ -12,8 +12,8 @@ public class GenerateColorListPerPixel
     private static ArrayList<Integer> pixelXList = new ArrayList<Integer>();
     private static int tmpPixelX = -1;
 
-    public Object[] ReturnPixelArray() {
-        System.out.println(pixelXList.get(1));
+    //@todo optimize if possible if we run in performance isseus
+    public List<Object> ReturnPixelArray() {
         int[] pixelXArray = pixelXList.stream().mapToInt(Integer::intValue).toArray();
         int[][] pixelYArray = pixelYList.stream().map(u->u.stream().mapToInt(i->i).toArray()).toArray(int[][]::new);
 
@@ -28,11 +28,12 @@ public class GenerateColorListPerPixel
             list.add(s);
             FinalList.add(list);
         }
-        System.out.println(FinalList);
-        return new Object[]{};
+
+        return FinalList;
     }
 
     /*
+    @todo optimize if possible if we run in performance isseus
     @params int pixelX
     @params int pixelY
 
