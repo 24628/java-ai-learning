@@ -16,6 +16,8 @@ import java.awt.image.DataBufferByte;
 
 public class ColorDectection
 {
+    private static int[][] yellowArray;
+
     public void detectColorInImage(Image img, int w, int h) {
         BufferedImage conImg = convertImage(img);
         int[][] pixels = new int[w][h];
@@ -25,8 +27,8 @@ public class ColorDectection
                 selectColor(conImg, i,j);
     }
 
-    private void selectColor(BufferedImage img, int w, int h){
-        int rgb = img.getRGB(w,h);
+    private void selectColor(BufferedImage img, int pixelW, int pixelH){
+        int rgb = img.getRGB(pixelW,pixelH);
 
         float hsb[] = new float[3];
         int r = (rgb >> 16) & 0xFF;
@@ -38,7 +40,7 @@ public class ColorDectection
         else if (hsb[2] < 0.1) blackFound();
         else {
             float deg = hsb[0]*360;
-            if (deg >=  30 && deg <  90) yellowFound();
+            if (deg >=  30 && deg <  90) yellowFound(pixelW, pixelY);
             else if (deg >=  90 && deg < 150) greenFound();
             else if (deg >= 150 && deg < 210) cyanFound();
             else if (deg >= 210 && deg < 270) blueFound();
@@ -55,8 +57,13 @@ public class ColorDectection
           //
     }
 
-    private void yellowFound(){
-          //
+    private void yellowFound(int pixelX, int pixelY){
+      // Step 1: Check if there is an item in the array
+      // Step 2: Save the position of the pixel
+      // Step 3: Then when ever the same pixel is found Look for the distance between ?
+      // Step 4: if the distance is below certain amount look at the third up coming pixel locations
+      // Step 5: if step 4 fails look at the last found pixel and repeat step 2
+      // Step 6: if its a row of mutiple pixels in a row save the locations and start looking at the same X but different y to see if its true (But should also work for circles ;-;)
     }
 
     private void greenFound(){
