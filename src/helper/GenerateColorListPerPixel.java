@@ -6,7 +6,7 @@ import java.util.List;
 public class GenerateColorListPerPixel
 {
 
-    private static int pixelIn1Row = 50;
+    private static int pixelIn1RowFilter = 50;
     private static ArrayList<ArrayList<Integer>> pixelYList = new ArrayList<ArrayList<Integer>>();
     private static ArrayList<Integer> tmpList = new ArrayList<Integer>();
     private static ArrayList<Integer> pixelXList = new ArrayList<Integer>();
@@ -57,7 +57,7 @@ public class GenerateColorListPerPixel
         if (tmpPixelX != pixelX && tmpPixelX != -1){
             tmpPixelX = pixelX;
             pixelXList.add(pixelX);
-            if(tmpList.size() > pixelIn1Row) pixelYList.add(tmpList);
+            if(tmpList.size() > pixelIn1RowFilter) pixelYList.add(tmpList);
             tmpList = new ArrayList<Integer>();
         } else if (tmpPixelX != pixelX && tmpPixelX == -1) {
             pixelXList.add(pixelX);
