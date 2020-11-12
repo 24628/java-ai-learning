@@ -32,14 +32,14 @@ public class Main {
   }
 
   public static void main(String[] args) {
-    try
-    {
-      Thread.sleep(7000);
-    }
-    catch(InterruptedException ex)
-    {
-      Thread.currentThread().interrupt();
-    }
+      // try
+      // {
+      //   Thread.sleep(3000);
+      // }
+      // catch(InterruptedException ex)
+      // {
+      //   Thread.currentThread().interrupt();
+      // }
       initWindow();
 
         ScreenShot ScreenShot = new ScreenShot();

@@ -9,12 +9,15 @@ import javax.swing.*;;
 import java.util.List;
 import java.util.Arrays;
 
+import src.helper.GenerateColorListPerPixel;
+
 public class ColorDectection
 {
     private static ArrayList<ArrayList<Integer>> yellowList = new ArrayList<ArrayList<Integer>>();
     private static ArrayList<Integer> tmpYellowList = new ArrayList<Integer>();
     private static int tmpYellowPixelX = -1;
 
+    private static GenerateColorListPerPixel FoundYellow = new GenerateColorListPerPixel();
     /*
     @params Image img
     @params int w
@@ -34,6 +37,7 @@ public class ColorDectection
                 selectColor(conImg, i,j);
 
         handleYellowList();
+        FoundYellow.ReturnPixelArray();
     }
 
     /*
@@ -59,7 +63,7 @@ public class ColorDectection
         else if (hsb[2] < 0.1) blackFound();
         else {
             float deg = hsb[0]*360;
-            if (deg >=  30 && deg <  90) yellowFound(pixelX, pixelY);
+            if (deg >=  30 && deg <  90) FoundYellow.GenerateList(pixelX, pixelY);
             else if (deg >=  90 && deg < 150) greenFound();
             else if (deg >= 150 && deg < 210) cyanFound();
             else if (deg >= 210 && deg < 270) blueFound();
@@ -69,6 +73,7 @@ public class ColorDectection
     }
 
     private void handleYellowList(){
+
       // System.out.println(yellowList);
       // Step 1: Check if there is an item in the array
       // Step 2: Save the position of the pixel
@@ -107,21 +112,21 @@ public class ColorDectection
 
     */
     private void yellowFound(int pixelX, int pixelY){
-        if (tmpYellowPixelX != pixelX && tmpYellowPixelX != -1){
-            tmpYellowPixelX = pixelX;
-            tmpYellowList.add(pixelY);
-            if(tmpYellowList.size() > 50) {
-                yellowList.add(tmpYellowList);
-                System.out.println(pixelX);
-                System.out.println(tmpYellowList.size());
-            }
-            tmpYellowList = new ArrayList<Integer>();
-        } else if (tmpYellowPixelX != pixelX && tmpYellowPixelX == -1 ) {
-            tmpYellowPixelX = pixelX;
-            tmpYellowList.add(pixelY);
-        } else {
-            tmpYellowList.add(pixelY);
-        }
+        // if (tmpYellowPixelX != pixelX && tmpYellowPixelX != -1){
+        //     tmpYellowPixelX = pixelX;
+        //     tmpYellowList.add(pixelY);
+        //     if(tmpYellowList.size() > 50) {
+        //         yellowList.add(tmpYellowList);
+        //         System.out.println(pixelX);
+        //         System.out.println(tmpYellowList.size());
+        //     }
+        //     tmpYellowList = new ArrayList<Integer>();
+        // } else if (tmpYellowPixelX != pixelX && tmpYellowPixelX == -1 ) {
+        //     tmpYellowPixelX = pixelX;
+        //     tmpYellowList.add(pixelY);
+        // } else {
+        //     tmpYellowList.add(pixelY);
+        // }
     }
 
     private void greenFound(){
