@@ -11,11 +11,9 @@ import java.awt.*;
 import javax.swing.*;
 
 
-public class ScreenShot
-{
+public class ScreenShot {
     //Gets screen width and height from main
-    public Image SCapture(int w, int h) throws Exception
-    {
+    public Image SCapture(int w, int h) throws Exception {
         Robot robot = new Robot();
         BufferedImage screenCapture = robot.createScreenCapture(new Rectangle(Toolkit.getDefaultToolkit().getScreenSize()));
         Image image = getScaledImage(screenCapture, w, h);
@@ -23,7 +21,7 @@ public class ScreenShot
     }
 
     //Gets screen width and height from main
-    private static Image getScaledImage(Image srcImg, int w, int h){
+    private static Image getScaledImage(Image srcImg, int w, int h) {
         System.out.println("KB: " + (double) (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1024);
         BufferedImage resizedImg = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2 = resizedImg.createGraphics();

@@ -3,8 +3,7 @@ package src.helper;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GenerateColorListPerPixel
-{
+public class GenerateColorListPerPixel {
 
     private static int pixelIn1RowFilter = 50;
     private static ArrayList<ArrayList<Integer>> pixelYList = new ArrayList<ArrayList<Integer>>();
@@ -15,15 +14,15 @@ public class GenerateColorListPerPixel
     //@todo optimize if possible if we run in performance isseus
     public List<Object> ReturnPixelArray() {
         int[] pixelXArray = pixelXList.stream().mapToInt(Integer::intValue).toArray();
-        int[][] pixelYArray = pixelYList.stream().map(u->u.stream().mapToInt(i->i).toArray()).toArray(int[][]::new);
+        int[][] pixelYArray = pixelYList.stream().map(u -> u.stream().mapToInt(i -> i).toArray()).toArray(int[][]::new);
 
         List<Object> FinalList = new ArrayList<Object>();
 
-        for(int i=0;i < pixelYArray.length;i++){
+        for (int i = 0; i < pixelYArray.length; i++) {
             List<SubHelperGenerateColorListPerPixel> list = new ArrayList<>();
             SubHelperGenerateColorListPerPixel s = new SubHelperGenerateColorListPerPixel();
             s.pixel_x = pixelXArray[i];
-            for(int j=0;j < pixelYArray[i].length; j++)
+            for (int j = 0; j < pixelYArray[i].length; j++)
                 s.pixel_y.add(pixelYArray[i][j]);
             list.add(s);
             FinalList.add(list);
@@ -53,11 +52,11 @@ public class GenerateColorListPerPixel
     if color is found give pixel X and Y to the corresponding function
 
     */
-    public void GenerateList(int pixelX, int pixelY){
-        if (tmpPixelX != pixelX && tmpPixelX != -1){
+    public void GenerateList(int pixelX, int pixelY) {
+        if (tmpPixelX != pixelX && tmpPixelX != -1) {
             tmpPixelX = pixelX;
             pixelXList.add(pixelX);
-            if(tmpList.size() > pixelIn1RowFilter) pixelYList.add(tmpList);
+            if (tmpList.size() > pixelIn1RowFilter) pixelYList.add(tmpList);
             tmpList = new ArrayList<Integer>();
         } else if (tmpPixelX != pixelX && tmpPixelX == -1) {
             pixelXList.add(pixelX);
@@ -77,6 +76,6 @@ class SubHelperGenerateColorListPerPixel {
 
     @Override
     public String toString() {
-        return pixel_x+ " "+pixel_y;
+        return pixel_x + " " + pixel_y;
     }
 }

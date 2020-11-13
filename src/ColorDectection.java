@@ -11,8 +11,7 @@ import java.util.Arrays;
 
 import src.helper.GenerateColorListPerPixel;
 
-public class ColorDectection
-{
+public class ColorDectection {
     private static GenerateColorListPerPixel WhiteFound = new GenerateColorListPerPixel();
     private static GenerateColorListPerPixel BlackFound = new GenerateColorListPerPixel();
     private static GenerateColorListPerPixel YellowFound = new GenerateColorListPerPixel();
@@ -21,6 +20,7 @@ public class ColorDectection
     private static GenerateColorListPerPixel BlueFound = new GenerateColorListPerPixel();
     private static GenerateColorListPerPixel MagentaFound = new GenerateColorListPerPixel();
     private static GenerateColorListPerPixel RedFound = new GenerateColorListPerPixel();
+
     /*
     @params Image img
     @params int w
@@ -35,9 +35,9 @@ public class ColorDectection
         BufferedImage conImg = convertImage(img);
         int[][] pixels = new int[w][h];
 
-        for( int i = 0; i < w; i++ )
-            for( int j = 0; j < h; j++ )
-                selectColor(conImg, i,j);
+        for (int i = 0; i < w; i++)
+            for (int j = 0; j < h; j++)
+                selectColor(conImg, i, j);
 
         // System.out.println(YellowFound.ReturnPixelArray());
     }
@@ -53,21 +53,21 @@ public class ColorDectection
     if color is found give pixel X and Y to the corresponding function
 
     */
-    private void selectColor(BufferedImage img, int pixelX, int pixelY){
-        int rgb = img.getRGB(pixelX,pixelY);
+    private void selectColor(BufferedImage img, int pixelX, int pixelY) {
+        int rgb = img.getRGB(pixelX, pixelY);
 
         float hsb[] = new float[3];
         int r = (rgb >> 16) & 0xFF;
-        int g = (rgb >>  8) & 0xFF;
-        int b = (rgb      ) & 0xFF;
+        int g = (rgb >> 8) & 0xFF;
+        int b = (rgb) & 0xFF;
         Color.RGBtoHSB(r, g, b, hsb);
 
-        if      (hsb[1] < 0.1 && hsb[2] > 0.9) WhiteFound.GenerateList(pixelX, pixelY);
+        if (hsb[1] < 0.1 && hsb[2] > 0.9) WhiteFound.GenerateList(pixelX, pixelY);
         else if (hsb[2] < 0.1) BlackFound.GenerateList(pixelX, pixelY);
         else {
-            float deg = hsb[0]*360;
-            if (deg >=  30 && deg <  90) YellowFound.GenerateList(pixelX, pixelY);
-            else if (deg >=  90 && deg < 150) GreenFound.GenerateList(pixelX, pixelY);
+            float deg = hsb[0] * 360;
+            if (deg >= 30 && deg < 90) YellowFound.GenerateList(pixelX, pixelY);
+            else if (deg >= 90 && deg < 150) GreenFound.GenerateList(pixelX, pixelY);
             else if (deg >= 150 && deg < 210) CyanFound.GenerateList(pixelX, pixelY);
             else if (deg >= 210 && deg < 270) BlueFound.GenerateList(pixelX, pixelY);
             else if (deg >= 270 && deg < 330) MagentaFound.GenerateList(pixelX, pixelY);

@@ -5,36 +5,35 @@ import java.awt.Robot;
 import java.awt.event.KeyEvent;
 import java.awt.AWTException;
 
-public class KeyInputs
-{
+public class KeyInputs {
     private static final Robot robot = initRobot();
 
     private static Robot initRobot() {
         Robot robot = null;
         try {
-          robot = new Robot();
+            robot = new Robot();
         } catch (AWTException e) {
-          e.printStackTrace();
+            e.printStackTrace();
         }
         return robot;
     }
 
-    public void pressKey(KeyEvent key, Boolean caps){
-        if(caps) robot.keyPress(KeyEvent.VK_CAPS_LOCK);
+    public void pressKey(KeyEvent key, Boolean caps) {
+        if (caps) robot.keyPress(KeyEvent.VK_CAPS_LOCK);
         robot.keyPress(key.getKeyCode());
     }
 
-    public void pressKeyWithCtrl(KeyEvent key){
+    public void pressKeyWithCtrl(KeyEvent key) {
         robot.keyPress(KeyEvent.VK_CONTROL);
         robot.keyPress(key.getKeyCode());
     }
 
-    public void releaseKey(KeyEvent key){
+    public void releaseKey(KeyEvent key) {
         robot.keyRelease(KeyEvent.VK_CAPS_LOCK);
         robot.keyRelease(key.getKeyCode());
     }
 
-    public void releaseKeyWithCtrl(KeyEvent key){
+    public void releaseKeyWithCtrl(KeyEvent key) {
         robot.keyRelease(KeyEvent.VK_CONTROL);
         robot.keyRelease(key.getKeyCode());
     }
