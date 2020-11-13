@@ -4,16 +4,27 @@ import java.io.File;
 import javax.imageio.ImageIO;
 import java.io.IOException;
 import java.awt.image.BufferedImage;
+import javax.swing.border.*;
+import javax.accessibility.*;
+import java.awt.event.*;
 
 import src.ScreenShot;
 import src.ColorDectection;
 import src.KeyInputs;
 import src.helper.GarbishColleter;
+import src.helper.ConvertImage;
+
 
 public class Main {
 
+    private static ScreenShot ScreenShot = new ScreenShot();
+    private static ColorDectection colorDec = new ColorDectection();
+    private static KeyInputs keyInputs = new KeyInputs();
+    private static GarbishColleter garbishColleter = new GarbishColleter();
+    private static ConvertImage cvImg = new ConvertImage();
+
     private static JFrame frame = new JFrame("Image Rendering");
-    private static JLabel label = new JLabel();
+    private static JLabel imageLabel = new JLabel();
 
     private static int ScreenHeight = 864;
     private static int ScreenWidth = 1152;
@@ -24,24 +35,35 @@ public class Main {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setPreferredSize(new Dimension(ScreenWidth, ScreenHeight));
         frame.setLocationRelativeTo(null);
+        frame.add(imageLabel);
         frame.pack();
-        frame.getContentPane().add(label);
         frame.setVisible(true);
+    }
+
+    private static Image drawOnImageTest(Image img)  {
+
+        BufferedImage bufferedImage = cvImg.convertImage(img);
+        Graphics g = bufferedImage.getGraphics();
+
+        g.setColor(Color.RED);
+        g.fillRect(50,50,50,50);
+        g.dispose();
+
+        return bufferedImage;
     }
 
     public static void main(String[] args) {
         initWindow();
 
-        ScreenShot ScreenShot = new ScreenShot();
-        ColorDectection colorDec = new ColorDectection();
-        KeyInputs keyInputs = new KeyInputs();
-        GarbishColleter garbishColleter = new GarbishColleter();
         while (loop) {
             try {
                 long startTime = System.currentTimeMillis();
                 Image img = ScreenShot.SCapture(ScreenWidth, ScreenHeight);
-                label.setIcon(new ImageIcon(img));
-                Color[][] colors = colorDec.loadPixelsFromImage(img, ScreenWidth, ScreenHeight);
+                Color[][] colors = colorDec.makeArrayOfColorToPixelGrid(img, ScreenWidth, ScreenHeight);
+
+                Image img2 = drawOnImageTest(img);
+                imageLabel.setIcon(new ImageIcon(img2));
+
                 long endTime = System.currentTimeMillis();
                 System.out.println("loop took this amount of miliseconds: " + (endTime - startTime));
 
@@ -52,3 +74,5 @@ public class Main {
         }
     }
 }
+
+
