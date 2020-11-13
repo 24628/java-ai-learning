@@ -33,7 +33,7 @@ public class GenerateColorListPerPixel
     }
 
     /*
-    @todo optimize if possible if we run in performance isseus
+    @todo optimize if possible if we run in performance isseus -> this peaces of code here causes the memory leak
     @params int pixelX
     @params int pixelY
 
@@ -54,7 +54,6 @@ public class GenerateColorListPerPixel
 
     */
     public void GenerateList(int pixelX, int pixelY){
-        tmpList.add(pixelY);
         if (tmpPixelX != pixelX && tmpPixelX != -1){
             tmpPixelX = pixelX;
             pixelXList.add(pixelX);

@@ -4,6 +4,7 @@ import java.io.File;
 import javax.imageio.ImageIO;
 import java.io.IOException;
 import java.awt.image.BufferedImage;
+import java.lang.ref.WeakReference;
 
 import src.ScreenShot;
 import src.ColorDectection;
@@ -32,14 +33,6 @@ public class Main {
   }
 
   public static void main(String[] args) {
-      // try
-      // {
-      //   Thread.sleep(3000);
-      // }
-      // catch(InterruptedException ex)
-      // {
-      //   Thread.currentThread().interrupt();
-      // }
       initWindow();
 
         ScreenShot ScreenShot = new ScreenShot();
@@ -54,6 +47,8 @@ public class Main {
               colorDec.detectColorInImage(img, ScreenWidth, ScreenHeight);
               long endTime = System.currentTimeMillis();
               System.out.println("loop took this amount of miliseconds: " + (endTime - startTime));
+
+              gc();
               // keyInputs.test();
               // loop = false;
             } catch (Exception ex) {
@@ -61,4 +56,18 @@ public class Main {
             }
         }
     }
+
+    /**
+    * This method guarantees that garbage collection is
+    * done unlike <code>{@link System#gc()}</code>
+    * https://stackoverflow.com/questions/1481178/how-to-force-garbage-collection-in-java
+    */
+   public static void gc() {
+       Object obj = new Object();
+       WeakReference ref = new WeakReference<Object>(obj);
+       obj = null;
+       while(ref.get() != null) {
+          System.gc();
+       }
+   }
 }
